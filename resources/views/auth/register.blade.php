@@ -60,6 +60,19 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
+                        <!-- moje od tego miejsca -->
+                        <div class="row mb-3">
+                            <label for="gender" class="col-md-4 col-form-label text-md-end">{{ __('Płeć') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="gender" class="form-control" name="gender" required>
+                                    <option value = "1">Mężczyzna</value>
+                                    <option value = "2">Kobieta</value>
+                                    <option value = "3">Inna/Nie chcę podawać</value>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- moje do tego miejsca -->
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">

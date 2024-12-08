@@ -1,0 +1,52 @@
+body{
+    background-image: url('../images/cork-board.png');
+}
+
+#form, #requirements{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+}
+
+#requirements{
+    padding: 4px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    width: 200px;
+}
+
+main{
+    margin-top: 30px;
+    text-align: center;
+}
+
+#book{
+    margin-top: 20px;
+    
+}
+
+#calendar{
+    background-color: white; 
+    border: 1px solid black;
+    width: 800px;
+}
+
+#userDescr{
+    width: 280px;
+    font-family: inherit;
+    background-image:  url("info-background.png");;
+    border: 1px solid black;
+
+}
+
+#userGoal{
+    margin-left: 10px;
+    width: 200px;
+    background-color: rgb(30, 126, 217);
+    border: 1px solid black;
+}
+
+
+
+
+
+
