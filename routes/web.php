@@ -6,11 +6,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () { // testowa rutka
-    return view('test');
-});
-
-
 
 Auth::routes();
 
