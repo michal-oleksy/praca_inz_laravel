@@ -1,12 +1,12 @@
 body{
     background-image: url('../images/cork-board.png');
 }
-
-#form, #requirements{
-    background-color: rgb(230, 22, 22);
+/* formularze, wymagania do hasła */
+#form{
+    background-color: rgb(255, 255, 255);
     border: 1px solid black;
 }
-
+/*wymagania do hasła */
 #requirements{
     padding: 4px;
     background-color: rgb(255, 255, 255);
@@ -16,12 +16,11 @@ body{
 
 main{
     margin-top: 30px;
-    text-align: center;
+    /* text-align: center; */
 }
 
 #book{
-    margin-top: 20px;
-    
+    margin-top: 20px; 
 }
 
 #calendar{
@@ -30,23 +29,16 @@ main{
     width: 800px;
 }
 
-#userDescr{
+/* #userDescr{ NA RAZIE NIE MA
     width: 280px;
     font-family: inherit;
     background-image:  url("info-background.png");;
     border: 1px solid black;
+} */
 
-}
-
-#userGoal{
+/* #userGoal{ NA RAZIE NIE MA
     margin-left: 10px;
     width: 200px;
     background-color: rgb(30, 126, 217);
     border: 1px solid black;
-}
-
-
-
-
-
-
+} */

@@ -41,6 +41,11 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ route('home') }}">Dashboard</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{{ url('Calendar') }}">Twój kalendarz</a>
+                    </li>
+
                 @else
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ route('login') }}">Zaloguj</a>
