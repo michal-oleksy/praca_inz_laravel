@@ -38,14 +38,31 @@
                     
         @if (Route::has('login'))          
                 @auth
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ route('home') }}">Dashboard</a>
-                    </li>
+                    <!-- KOMUNIKAT 'JESTEŚ ZALOGOWANY...' -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-light" href="{{ route('home') }}">Dashboard</a> 
+                    </li> -->
 
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ url('Calendar') }}">Twój kalendarz</a>
-                    </li>                 
+                    </li>   
+                    <li class="nav-item dropdown ">
+                            <a id="navbarDropdown ms-auto" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Zalogowany użytkownik: {{ Auth::user()->firstName }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> 
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    {{ __('Wyloguj się') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div> 
+                        </li>              
                 @endauth
                     </ul>
                 </div>
@@ -57,8 +74,20 @@
                     <div class="col-auto">                                  
                         <div id="calendar"></div>             
                     </div>
+               
+                    <div class="col-auto bg-secondary">                                  
+                        Twoje przeczytane strony od założenia konta : {{$sumPagesAll}}<br>
+                        Twój cel roczny: {{$yearGoal}}<br>
+                        Twój cel miesięczny: {{$monthGoal}}<br>
+                        Twój cel dzienny: {{$dayGoal}}
+
+                    </div>
                 </div>
             </div>
+            
+            
+            
+            
             <div class="modal fade" id="pagesModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md" role="document">
                     <div class="modal-content">
@@ -94,6 +123,7 @@
                     </div>
                 </div>
             </div>
+            
 
 
 
