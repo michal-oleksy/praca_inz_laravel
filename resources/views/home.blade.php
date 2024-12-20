@@ -33,7 +33,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ route('Calendar.index') }}">Twój kalendarz</a>
+                        <a class="nav-link text-light" href="{{ route('calendar.index') }}">Twój kalendarz</a>
                     </li>
                     <li class="nav-item dropdown ">
                         <a id="navbarDropdown ms-auto" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -92,8 +92,14 @@
                                     @endforeach
                                 </div>
                                
-                                <div class="col-auto">
-                                
+                                <div class="col-auto border border-secondary">
+                                    <form action="{{ route('Home.edit') }}" method="post">
+                                    @csrf
+                                        Roczny: <input style="width:100px;"class="my-1" type="number" name="yearGoal" id="yearGoal"> <br>
+                                        Miesięczny: <input style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal"> <br>
+                                        Dzienny: <input style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal"> <br>
+                                        <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
+                                    </form>
                                 </div>
                             </div>
                             

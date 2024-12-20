@@ -46,7 +46,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="{{ url('Calendar') }}">Twój kalendarz</a>
+                    <a class="nav-link text-light" href="{{ url('calendar') }}">Twój kalendarz</a>
                 </li>
                 <li class="nav-item dropdown ">
                     <a id="navbarDropdown ms-auto" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -114,7 +114,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <!-- <label for="event_name">Event name</label> -->
-                                        <input type="text" name="title" id="title" class="form-control" placeholder="Liczba">
+                                        <input type="number" name="title" id="title" class="form-control" placeholder="Liczba">
                                         <span id="titleError" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="event_start_date">Data: </label>
-                                        <input type="date" name="date" id="date" class="form-control onlydatepicker" placeholder="Event start date">
+                                        <input type="date" name="date" id="date" class="form-control onlydatepicker">
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                         var date = $('#date').val();
 
                         $.ajax({
-                            url: "{{ route('Calendar.save')}}",
+                            url: "{{ route('calendar.save')}}",
                             type: "POST",
                             dataType: 'json',
                             data: {

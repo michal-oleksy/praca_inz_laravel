@@ -35,6 +35,9 @@
                     <a class="nav-link text-light" href="{{ url('/') }}">Strona główna</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{{ route('books.index') }}">Książki</a>
+                </li>
                 @if (Route::has('login'))
 
 
