@@ -30,35 +30,15 @@ class CalendarController extends Controller
                 ];
         }
 
-       
         $sumPagesAll = DB::table('pages')
             ->where('userID', $userID)
-            ->sum('title');
-
-        $yearGoal = DB::table('goals')
-            ->where('userID', $userID)
-            ->value('yearGoal');
-
-        $monthGoal = DB::table('goals')
-            ->where('userID', $userID)
-            ->value('monthGoal');  
-        $dayGoal = DB::table('goals')
-            ->where('userID', $userID)
-            ->value('dayGoal');   
+            ->sum('title');  
             
-            
+        $goals = DB::table('goals')
+            ->where('userID', $userID)
+            ->select('yearGoal','monthGoal','dayGoal')->get();
 
-        // dd($yearGoal);
-
-        // if ($sumPagesAll>$goalPages){
-        //     $goalResult = 'Spełniłeś cel';
-        // }
-        // else{
-        //     $goalResult = 'Nie spełniłes celu';
-        // }
-
-    
-    return view("Calendar", ['events' => $events])->with('sumPagesAll',$sumPagesAll)->with('yearGoal',$yearGoal)->with('monthGoal',$monthGoal)->with('dayGoal',$dayGoal);
+    return view("Calendar", ['events' => $events])->with('sumPagesAll',$sumPagesAll)->with('goals',$goals);
     }
 
     public function save(Request $request){
@@ -81,15 +61,8 @@ class CalendarController extends Controller
        
     }
 
-    // public function showProgress(){
-    //     $user = auth()->user();
-    //     $userID = $user['id'];
-
-    //     $pagesCount = DB::table('pages')
-    //     ->sum('title')
-    //     ->where('userID', $userID);
-
-    //     return $pagesCount;
-    //     // SELECT sum(title) FROM `pages` WHERE userID=2;
-    // }
+    public function edit(Request $request){
+        dd("test");
+    
+    }
 }
