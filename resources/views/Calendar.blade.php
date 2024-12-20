@@ -115,6 +115,7 @@
                                     <div class="form-group">
                                         <!-- <label for="event_name">Event name</label> -->
                                          <!--  test-->
+                                           <!-- ww -->
                                         <input type="number" name="title" id="title" class="form-control" placeholder="Liczba">
                                         <span id="titleError" class="text-danger"></span>
                                     </div>
