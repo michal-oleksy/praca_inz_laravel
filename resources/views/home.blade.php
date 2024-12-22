@@ -29,6 +29,10 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link text-light" href="{{ route('books.index') }}">Książki</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link text-light" href="{{ route('home') }}">Twój profil</a>
                     </li>
 
@@ -88,25 +92,32 @@
                                     @foreach($goals as $data)
                                     Twój cel roczny: {{ $data->yearGoal }} <br>
                                     Twój cel miesięczny: {{ $data->monthGoal }} <br>
-                                    Twój cel dzienny: {{ $data->dayGoal }} <br>
+                                    Twój cel tygodniowy: {{ $data->weekGoal }} <br>
                                     @endforeach
                                 </div>
-                               
+                                @php
+                                    $id = $data->yearGoal;
+                                @endphp
+
+                                
                                 <div class="col-auto border border-secondary">
                                     <form action="{{ route('Home.edit') }}" method="post">
-                                    @csrf
-                                        Roczny: <input style="width:100px;"class="my-1" type="number" name="yearGoal" id="yearGoal"> <br>
-                                        Miesięczny: <input style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal"> <br>
-                                        Dzienny: <input style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal"> <br>
+                                        @csrf
+                                        
+                                        Roczny: <input style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal" value="{{ $data->yearGoal }}"> <br>
+                                        Miesięczny: <input style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal" value="{{ $data->monthGoal }}"> <br>
+                                        Tygodniowy: <input style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal" value="{{ $data->weekGoal }}"> <br>
+                                        <p>Pamiętaj, cel miesięczny musi być mniejszy niż roczny, <br>a tygodniowy mniejszy niż miesięczny.</p>
                                         <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
+                                        
                                     </form>
                                 </div>
                             </div>
-                            
+
                         </div>
 
                     </div>
-                   
+
 
                 </div>
             </div>

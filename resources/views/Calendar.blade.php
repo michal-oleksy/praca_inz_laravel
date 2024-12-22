@@ -38,6 +38,10 @@
                     <a class="nav-link text-light" href="{{ url('/') }}">Strona główna</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{{ route('books.index') }}">Książki</a>
+                </li>
+                
                 @if (Route::has('login'))
                 @auth
                 <!-- KOMUNIKAT 'JESTEŚ ZALOGOWANY...' -->
@@ -85,13 +89,37 @@
                     <div class="card" >
                         <div class="card-body">
                             <h5 class="card-title">Twoje postępy</h5>   
-                            Twoje przeczytane strony od założenia konta : {{$sumPagesAll}}<br>
-
+                            Twoje przeczytane strony od założenia konta: {{$sumPagesAll}}<br>
+                            Twoje przeczytane strony w tym roku : {{ $currentPages[0] }}<br>
+                            Twoje przeczytane strony w tym miesiącu : {{ $currentPages[1] }}<br>
+                            Twoje przeczytane strony w tym tygodniu : {{ $currentPages[2] }}<br>
+                            <hr>
                             @foreach($goals as $data)
                                 Twój cel roczny: {{ $data->yearGoal }}<br>
                                 Twój cel miesięczny: {{ $data->monthGoal }}<br>
-                                Twój cel dzienny: {{ $data->dayGoal }}
+                                Twój cel tygodniowy: {{ $data->weekGoal }}
                             @endforeach
+                            <hr>
+                            <!-- Cel roczny -->
+                            @if( $currentPages[0] > $data->yearGoal )
+                                <p>Cel roczny został spełniony.</p>
+                            @else
+                                <p>Cel roczny nie został spełniony.</p>
+                            @endif 
+                            <!-- Cel miesięczny -->
+                            @if( $currentPages[1] > $data->monthGoal ) 
+                                <p>Cel miesięczny został spełniony.</p>
+                            @else
+                                <p>Cel miesięczny nie został spełniony.</p>
+                            @endif
+                            <!-- Cel tygodniowy -->
+                            @if( $currentPages[2] > $data->weekGoal ) 
+                                <p>Cel tygodniowy został spełniony.</p>
+                            @else
+                                <p>Cel tygodniowy nie został spełniony.</p>
+                            @endif
+
+
                         </div>
                     </div>
                 </div>
@@ -113,10 +141,8 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <!-- <label for="event_name">Event name</label> -->
-                                         <!--  test-->
-                                           <!-- ww -->
-                                        <input type="number" name="title" id="title" class="form-control" placeholder="Liczba">
+                                        <input type="number" min="1" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" name="title" id="title" class="form-control" placeholder="Liczba">
+
                                         <span id="titleError" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -156,17 +182,11 @@
             })
 
             var pages = @json($events);
-            // var test = pages[0];
-            // console.log(pages);    
-            // console.log(test);
-            // console.log(pages['pages']);
             var calendar = $('#calendar').fullCalendar({
                 monthNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
                 monthNamesShort: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'],
                 dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
                 dayNamesShort: ['Nie', 'Pon', 'Wt', 'Śr', 'Czw', 'Pią', 'Sob'],
-
-
                 buttonText: {
                     today: 'dzisiaj',
                     day: 'dzień',
@@ -188,7 +208,6 @@
                     return moment(event.start).utcOffset(false).isSame(moment(event.end).subtract(1, 'second').utcOffset(false), 'day');
                 },
                 events: pages,
-
 
                 selectable: true,
                 selectHelper: true,
@@ -221,6 +240,7 @@
                             error: function(error) {
                                 if (error.responseJSON.errors) {
                                     $('#titleError').html("To pole jest wymagane");
+                                    // $('#titleError').html(error.responseJSON.errors.title);
                                 }
                             },
                         })

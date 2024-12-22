@@ -48,7 +48,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="{{ url('Calendar') }}">Twój kalendarz</a>
+                    <a class="nav-link text-light" href="{{ url('calendar') }}">Twój kalendarz</a>
                 </li>
                 <li class="nav-item dropdown ">
                     <a id="navbarDropdown ms-auto" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
