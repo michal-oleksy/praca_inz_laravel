@@ -3,67 +3,65 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pages;
-use App\Models\Goals;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-// use App\Model\Http\;
+use Illuminate\Support\Carbon;
+
 class CalendarController extends Controller
 {
-    
+
     public function index()
     {
         $events = array();
 
         $user = auth()->user();
         $userID = $user['id'];
-        
+
 
         $pages = Pages::all()
             ->where('userID', $userID);
 
-        foreach($pages as $page){
+        foreach ($pages as $page) {
             $events[] = [
-                    'id' => $page->id,
-                    'title' => $page->title,
-                    'date' => $page->date,
-                ];
+                'id' => $page->id,
+                'title' => $page->title,
+                'date' => $page->date,
+            ];
         }
 
-       
         $sumPagesAll = DB::table('pages')
             ->where('userID', $userID)
             ->sum('title');
 
-        $yearGoal = DB::table('goals')
+        $currentYear = DB::table('pages')
             ->where('userID', $userID)
-            ->value('yearGoal');
+            ->whereYear('date', Carbon::now()->year)
+            ->sum('title');
 
-        $monthGoal = DB::table('goals')
+        $currentMonth = DB::table('pages')
             ->where('userID', $userID)
-            ->value('monthGoal');  
-        $dayGoal = DB::table('goals')
+            ->whereMonth('date', Carbon::now()->month)
+            ->sum('title');
+
+        $currentWeek = DB::table('pages')
             ->where('userID', $userID)
-            ->value('dayGoal');   
-            
-            
+            ->whereBetween('date', [Carbon::now()->startOfWeek(Carbon::SUNDAY), Carbon::now()->endOfWeek(Carbon::SATURDAY)])
+            ->sum('title');
 
-        // dd($yearGoal);
+        $currentPages = [$currentYear, $currentMonth, $currentWeek];
 
-        // if ($sumPagesAll>$goalPages){
-        //     $goalResult = 'Spełniłeś cel';
-        // }
-        // else{
-        //     $goalResult = 'Nie spełniłes celu';
-        // }
+        $goals = DB::table('goals')
+            ->where('userID', $userID)
+            ->select('yearGoal', 'monthGoal', 'weekGoal')->get();
 
-    
-    return view("Calendar", ['events' => $events])->with('sumPagesAll',$sumPagesAll)->with('yearGoal',$yearGoal)->with('monthGoal',$monthGoal)->with('dayGoal',$dayGoal);
+        return view("calendar", ['events' => $events])->with('sumPagesAll', $sumPagesAll)->with('goals', $goals)->with('currentPages', $currentPages);
     }
 
-    public function save(Request $request){
+    public function save(Request $request)
+    {
         $request->validate([
-            'title' => 'required|string'
+            'title' => 'required|numeric|gt:0'
         ]);
 
         $user = auth()->user();
@@ -71,25 +69,12 @@ class CalendarController extends Controller
 
         $pagesSave = Pages::updateOrCreate([
             'date' => $request->date,
-        ],[
+        ], [
             'userID' => $userID,
             'title' => $request->title,
-            
+
         ]);
 
         return response()->json($pagesSave);
-       
     }
-
-    // public function showProgress(){
-    //     $user = auth()->user();
-    //     $userID = $user['id'];
-
-    //     $pagesCount = DB::table('pages')
-    //     ->sum('title')
-    //     ->where('userID', $userID);
-
-    //     return $pagesCount;
-    //     // SELECT sum(title) FROM `pages` WHERE userID=2;
-    // }
 }

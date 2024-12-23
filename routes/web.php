@@ -12,12 +12,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('home', [App\Http\Controllers\HomeController::class, 'edit'])->name('Home.edit');
 
 
+Route::get('calendar', [App\Http\Controllers\CalendarController::class, 'index'])->name('calendar.index');
+Route::post('calendar', [App\Http\Controllers\CalendarController::class, 'save'])->name('calendar.save');
 
-Route::get('Calendar', [App\Http\Controllers\CalendarController::class, 'index']);
-Route::post('Calendar', [App\Http\Controllers\CalendarController::class, 'save'])->name('Calendar.save');
+Route::get('books', [App\Http\Controllers\BooksController::class, 'index'])->name('books.index');
 
+Route::get('bookSpecs/{bookID}', [App\Http\Controllers\BookSpecsController::class, 'index'])->name('bookSpecs');
 
 
