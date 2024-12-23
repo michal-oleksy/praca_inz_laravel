@@ -23,4 +23,7 @@ Route::get('books', [App\Http\Controllers\BooksController::class, 'index'])->nam
 
 Route::get('bookSpecs/{bookID}', [App\Http\Controllers\BookSpecsController::class, 'index'])->name('bookSpecs');
 
+Route::post('bookSpecs', [App\Http\Controllers\BookSpecsController::class, 'addRate'])->name('bookSpecs.addRate');
+
+
 

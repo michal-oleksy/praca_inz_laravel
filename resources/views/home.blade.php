@@ -104,9 +104,9 @@
                                     <form action="{{ route('Home.edit') }}" method="post">
                                         @csrf
                                         
-                                        Roczny: <input style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal" value="{{ $data->yearGoal }}"> <br>
-                                        Miesięczny: <input style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal" value="{{ $data->monthGoal }}"> <br>
-                                        Tygodniowy: <input style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal" value="{{ $data->weekGoal }}"> <br>
+                                        Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal" value="{{ $data->yearGoal }}"> <br>
+                                        Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal" value="{{ $data->monthGoal }}"> <br>
+                                        Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal" value="{{ $data->weekGoal }}"> <br>
                                         <p>Pamiętaj, cel miesięczny musi być mniejszy niż roczny, <br>a tygodniowy mniejszy niż miesięczny.</p>
                                         <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
                                         
