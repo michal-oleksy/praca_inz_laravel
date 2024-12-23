@@ -101,7 +101,7 @@
                         <p>{{ $book->author;}}</p>
                     </td>
                     <td>
-                        <a href="{{ route('books.index') }}">
+                        <a href="{{ route('bookSpecs', ['bookID' => $book->id] )}}">
                             <p>{{ $book->title;}}</p>
                         </a>
                     </td>

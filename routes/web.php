@@ -21,9 +21,6 @@ Route::post('calendar', [App\Http\Controllers\CalendarController::class, 'save']
 
 Route::get('books', [App\Http\Controllers\BooksController::class, 'index'])->name('books.index');
 
-
-
-
-
+Route::get('bookSpecs/{bookID}', [App\Http\Controllers\BookSpecsController::class, 'index'])->name('bookSpecs');
 
 

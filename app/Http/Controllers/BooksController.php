@@ -12,8 +12,6 @@ class BooksController extends Controller
 
         return view('books', ['books' => $books]);
     }
-
-    
 }
 
 
