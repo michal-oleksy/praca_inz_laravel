@@ -89,25 +89,43 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-auto">
-                                    @foreach($goals as $data)
-                                    Twój cel roczny: {{ $data->yearGoal }} <br>
-                                    Twój cel miesięczny: {{ $data->monthGoal }} <br>
-                                    Twój cel tygodniowy: {{ $data->weekGoal }} <br>
-                                    @endforeach
+                                     @isset($goals)
+                                        @foreach($goals as $data)
+                                        Twój cel roczny: {{ $data->yearGoal }} <br>
+                                        Twój cel miesięczny: {{ $data->monthGoal }} <br>
+                                        Twój cel tygodniowy: {{ $data->weekGoal }} <br>
+                                        Twój cel dzienny: {{ $data->dayGoal }} <br>
+                                        @endforeach
+                                    @else
+                                        Twój cel roczny: brak <br>
+                                        Twój cel miesięczny: brak <br>
+                                        Twój cel tygodniowy: brak <br>
+                                        Twój cel dzienny: brak <br>
+                                    @endisset
                                 </div>
-                                @php
-                                    $id = $data->yearGoal;
-                                @endphp
+                               
 
                                 
                                 <div class="col-auto border border-secondary">
-                                    <form action="{{ route('Home.edit') }}" method="post">
+                                    <form action="{{ route('home.edit') }}" method="post">
                                         @csrf
                                         
+                                        @isset($data->yearGoal, $data->monthGoal, $data->weekGoal, $data->dayGoal)
+
                                         Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal" value="{{ $data->yearGoal }}"> <br>
                                         Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal" value="{{ $data->monthGoal }}"> <br>
                                         Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal" value="{{ $data->weekGoal }}"> <br>
-                                        <p>Pamiętaj, cel miesięczny musi być mniejszy niż roczny, <br>a tygodniowy mniejszy niż miesięczny.</p>
+                                        Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal" value="{{ $data->dayGoal }}"> <br>
+                                       
+                                        @else
+
+                                        Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal" > <br>
+                                        Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal" > <br>
+                                        Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal" > <br>
+                                        Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal" > <br>
+                                        @endisset
+
+                                        <p>Pamiętaj, następujące po sobie <br>cele muszą być coraz mniejsze.</p>
                                         <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
                                         
                                     </form>
@@ -129,3 +147,4 @@
 </body>
 
 </html>
+

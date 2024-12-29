@@ -90,35 +90,49 @@
                         <div class="card-body">
                             <h5 class="card-title">Twoje postępy</h5>   
                             Twoje przeczytane strony od założenia konta: {{$sumPagesAll}}<br>
-                            Twoje przeczytane strony w tym roku : {{ $currentPages[0] }}<br>
-                            Twoje przeczytane strony w tym miesiącu : {{ $currentPages[1] }}<br>
-                            Twoje przeczytane strony w tym tygodniu : {{ $currentPages[2] }}<br>
+                            Twoje przeczytane strony w tym roku: {{ $currentPages[0] }}<br>
+                            Twoje przeczytane strony w tym miesiącu: {{ $currentPages[1] }}<br>
+                            Twoje przeczytane strony w tym tygodniu: {{ $currentPages[2] }}<br>
+                            Twoje przeczytane strony dzisiaj: {{ $currentPages[3] }}<br>
                             <hr>
                             @foreach($goals as $data)
                                 Twój cel roczny: {{ $data->yearGoal }}<br>
                                 Twój cel miesięczny: {{ $data->monthGoal }}<br>
-                                Twój cel tygodniowy: {{ $data->weekGoal }}
+                                Twój cel tygodniowy: {{ $data->weekGoal }}<br>
+                                Twój cel dzieny: {{ $data->dayGoal }}
                             @endforeach
                             <hr>
+                            
                             <!-- Cel roczny -->
                             @if( $currentPages[0] > $data->yearGoal )
-                                <p>Cel roczny został spełniony.</p>
+                                Cel roczny został spełniony. <img src="{{asset('images/ok-mark.png')}}">
                             @else
-                                <p>Cel roczny nie został spełniony.</p>
+                                Cel roczny nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
+                                                 
                             @endif 
+                            <br>
+                            
                             <!-- Cel miesięczny -->
                             @if( $currentPages[1] > $data->monthGoal ) 
-                                <p>Cel miesięczny został spełniony.</p>
+                                Cel miesięczny został spełniony. <img src="{{asset('images/ok-mark.png')}}">
                             @else
-                                <p>Cel miesięczny nie został spełniony.</p>
+                                Cel miesięczny nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
                             @endif
+                            <br>
                             <!-- Cel tygodniowy -->
                             @if( $currentPages[2] > $data->weekGoal ) 
-                                <p>Cel tygodniowy został spełniony.</p>
+                                Cel tygodniowy został spełniony. <img src="{{asset('images/ok-mark.png')}}">
                             @else
-                                <p>Cel tygodniowy nie został spełniony.</p>
+                                Cel tygodniowy nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
                             @endif
-
+                            <br>
+                            <!-- Cel dzienny -->
+                            @if( $currentPages[3] > $data->dayGoal ) 
+                                Cel dzienny został spełniony. <img src="{{asset('images/ok-mark.png')}}">
+                            @else
+                                Cel dzienny nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
+                            @endif
+                            <br>
 
                         </div>
                     </div>

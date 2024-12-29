@@ -30,7 +30,7 @@ class HomeController extends Controller
         $userID = $user['id'];
 
         $info = DB::table('users')->where('id', $userID)->select('firstName', 'lastName', 'email', 'nickName')->get();
-        $goals = DB::table('goals')->where('userID', $userID)->select('yearGoal', 'monthGoal', 'weekGoal')->get();
+        $goals = DB::table('goals')->where('userID', $userID)->select('yearGoal', 'monthGoal', 'weekGoal','dayGoal')->get();
 
         return view('home')->with('info', $info)->with('goals', $goals);
     }
@@ -43,7 +43,8 @@ class HomeController extends Controller
         $request->validate([
             'yearGoal' => 'nullable|numeric|gt:0',
             'monthGoal' => 'nullable|numeric|gt:0|lt:yearGoal',
-            'weekGoal' => 'nullable|numeric|gt:0|lt:monthGoal'
+            'weekGoal' => 'nullable|numeric|gt:0|lt:monthGoal',
+            'dayGoal'=> 'nullable|numeric|gt:0|lt:weekGoal',
         ]);
 
         Goals::updateOrCreate([
@@ -52,6 +53,7 @@ class HomeController extends Controller
             'yearGoal' => $request->yearGoal,
             'monthGoal' => $request->monthGoal,
             'weekGoal' => $request->weekGoal,
+            'dayGoal' => $request->dayGoal,
         ]);
 
         return redirect()->route('home');

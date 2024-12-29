@@ -49,11 +49,16 @@ class CalendarController extends Controller
             ->whereBetween('date', [Carbon::now()->startOfWeek(Carbon::SUNDAY), Carbon::now()->endOfWeek(Carbon::SATURDAY)])
             ->sum('title');
 
-        $currentPages = [$currentYear, $currentMonth, $currentWeek];
+        $currentDay = DB::table('pages')
+            ->where('userID', $userID)
+            ->whereDate('date', Carbon::today())
+            ->sum('title');
+
+        $currentPages = [$currentYear, $currentMonth, $currentWeek, $currentDay];
 
         $goals = DB::table('goals')
             ->where('userID', $userID)
-            ->select('yearGoal', 'monthGoal', 'weekGoal')->get();
+            ->select('yearGoal', 'monthGoal', 'weekGoal','dayGoal')->get();
 
         return view("calendar", ['events' => $events])->with('sumPagesAll', $sumPagesAll)->with('goals', $goals)->with('currentPages', $currentPages);
     }

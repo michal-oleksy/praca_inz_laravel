@@ -13,7 +13,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('home', [App\Http\Controllers\HomeController::class, 'edit'])->name('Home.edit');
+Route::post('home', [App\Http\Controllers\HomeController::class, 'edit'])->name('home.edit');
 
 
 Route::get('calendar', [App\Http\Controllers\CalendarController::class, 'index'])->name('calendar.index');
@@ -23,7 +23,8 @@ Route::get('books', [App\Http\Controllers\BooksController::class, 'index'])->nam
 
 Route::get('bookSpecs/{bookID}', [App\Http\Controllers\BookSpecsController::class, 'index'])->name('bookSpecs');
 
-Route::post('bookSpecs', [App\Http\Controllers\BookSpecsController::class, 'addRate'])->name('bookSpecs.addRate');
+Route::post('bookSpecs/addRate', [App\Http\Controllers\BookSpecsController::class, 'addRate'])->name('bookSpecs.addRate');
+Route::post('bookSpecs/addReview', [App\Http\Controllers\BookSpecsController::class, 'addReview'])->name('bookSpecs.addReview');
 
 
 
