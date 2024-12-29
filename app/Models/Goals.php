@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Goals extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['userID','yearGoal','monthGoal','weekGoal'];
+    protected $fillable = ['userID','yearGoal','monthGoal','weekGoal','dayGoal'];
 }
 
 
