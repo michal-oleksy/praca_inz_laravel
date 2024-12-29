@@ -7,6 +7,8 @@ use App\Models\Books;
 use App\Models\Ratings;
 use App\Models\Reviews;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class BookSpecsController extends Controller
 {
@@ -31,8 +33,8 @@ class BookSpecsController extends Controller
             ->where('reviews.bookID', $bookID)
             ->get();
 
-        
-        $user = auth()->user();
+
+        $user = Auth::user();
 
         $userID = isset($user) ? $userID = $user['id'] : 0;
 
@@ -47,12 +49,24 @@ class BookSpecsController extends Controller
 
     public function addRate(Request $request)
     {
-        // dd()
-        $request->validate([
+        
+        
+
+        $validator = Validator::make($request->all(), [
             'rate' => 'required|numeric|gt:0|lt:6',
+        ], [
+            'review.required' => 'Ocena jest wymagana.',
         ]);
 
-        $user = auth()->user();
+        if ($validator->fails()) {
+            return redirect()->route('bookSpecs', ['bookID' => $request->bookID])
+                             ->withErrors($validator)
+                             ->withInput();
+        }
+
+        
+
+        $user = Auth::user();
         $userID = $user['id'];
 
         $addRate = Ratings::updateOrCreate([
@@ -66,11 +80,23 @@ class BookSpecsController extends Controller
 
     public function addReview(Request $request)
     {
-        $request->validate([
-            'review' => 'required',
+
+
+     
+
+        $validator = Validator::make($request->all(), [
+            'review' => 'required|min:1',
+        ], [
+            'review.required' => 'Recenzja jest wymagana.',
         ]);
 
-        $user = auth()->user();
+        if ($validator->fails()) {
+            return redirect()->route('bookSpecs', ['bookID' => $request->bookID])
+                             ->withErrors($validator)
+                             ->withInput();
+        }
+
+        $user = Auth::user();
         $userID = $user['id'];
 
         $addReview = Reviews::updateOrCreate([

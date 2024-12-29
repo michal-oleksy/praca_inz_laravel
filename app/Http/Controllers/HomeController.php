@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
 use App\Models\Goals;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -26,25 +26,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $userID = $user['id'];
 
         $info = DB::table('users')->where('id', $userID)->select('firstName', 'lastName', 'email', 'nickName')->get();
-        $goals = DB::table('goals')->where('userID', $userID)->select('yearGoal', 'monthGoal', 'weekGoal','dayGoal')->get();
+        $goals = DB::table('goals')->where('userID', $userID)->select('yearGoal', 'monthGoal', 'weekGoal', 'dayGoal')->get();
 
         return view('home')->with('info', $info)->with('goals', $goals);
     }
 
     public function edit(Request $request)
     {
-        $user = auth()->user();
-        $userID = $user['id'];
+        $user = Auth::user();
+        $userID = $user['id'];;
 
         $request->validate([
             'yearGoal' => 'nullable|numeric|gt:0',
             'monthGoal' => 'nullable|numeric|gt:0|lt:yearGoal',
             'weekGoal' => 'nullable|numeric|gt:0|lt:monthGoal',
-            'dayGoal'=> 'nullable|numeric|gt:0|lt:weekGoal',
+            'dayGoal' => 'nullable|numeric|gt:0|lt:weekGoal',
         ]);
 
         Goals::updateOrCreate([

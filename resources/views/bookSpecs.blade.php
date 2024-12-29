@@ -5,11 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
     <title>Czytaj z nami</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/style_index.css')}}">
+
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.umd.js"></script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/44.1.0/translations/pl.umd.js"></script>
+
     <link rel="shortcut icon" href="{{ asset('/images/favicon1.jpg') }}">
+
+
 
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -147,6 +156,14 @@
                                 <input type="radio" name="rate" id="rate5" value="5">
                                 <label for="rate5">5</label><br>
 
+
+                                @error('rate')
+                                <div class="alert alert-danger my-2">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+
+
                                 <button type="submit" class="btn btn-primary my-2" id="saveBtn">Dodaj ocenę</button>
                             </form>
                             @endauth
@@ -174,13 +191,13 @@
                             Użytkownik nie ocenił tej książki.<br>
                             @endisset
 
-                            {{ $review->review  }}
+                            {!! $review->review !!}
 
                             <hr>
                             @endforeach
                         </div>
 
-                        <div class="col-auto">
+                        <div class="col-auto w-50">
                             @auth
 
                             <form action="{{ route('bookSpecs.addReview', ['bookID' => $bookInfo['id']] ) }}" method="post">
@@ -189,24 +206,57 @@
                                 <label for="review">
                                     <h5>Dodaj recenzję: </h5>
                                 </label>
-                                <input required type=text name="review" id="review" placeholder="Napisz recenzję książki"
-                                    class="form-control my-2">
 
+                                <textarea required name="review" id="editor">
+                                {{ old('review') }}
+                                </textarea>
+                                @error('review')
+                                    <div class="alert alert-danger my-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                                 <button type="submit" class="btn btn-primary my-2" id="saveBtn">Dodaj recenzję</button>
                             </form>
+                            <br>
+                            <p>LISTA 1</p>
+                            <p>LISTA 2</p>
+                            <p>LISTA 3</p>
                             @endauth
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
-
         </div>
     </main>
+    <script>
+        const {
+            ClassicEditor,
+            Essentials,
+            Bold,
+            Italic,
+            Font,
+            Paragraph,
+            SpecialCharacters,
+            SpecialCharactersEssentials
+        } = CKEDITOR;
+
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3MzY3MjYzOTksImp0aSI6IjQ5MjY5YmUzLTI3MzAtNDE0MC05M2ZlLTIxZTkwY2QxMTM3NyIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6ImRmMjU3M2VkIn0.4j83IN3OnlFK6qplsbNRracJvpa4_Yum58Y85Ln8tgF3S4ENU1pCLh8dxFv53gZDt49F5AfYbuZYsQGiIYctUw',
+                plugins: [Essentials, Bold, Italic, Font, Paragraph, SpecialCharacters, SpecialCharactersEssentials, ],
+                toolbar: [
+                    'undo', 'redo', '|', 'bold', 'italic', 'specialCharacters', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|'
+                ],
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+
+
 </body>
 
 </html>

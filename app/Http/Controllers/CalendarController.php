@@ -7,6 +7,7 @@ use App\Models\Pages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
 {
@@ -15,7 +16,7 @@ class CalendarController extends Controller
     {
         $events = array();
 
-        $user = auth()->user();
+        $user = Auth::user();
         $userID = $user['id'];
 
 
@@ -58,7 +59,7 @@ class CalendarController extends Controller
 
         $goals = DB::table('goals')
             ->where('userID', $userID)
-            ->select('yearGoal', 'monthGoal', 'weekGoal','dayGoal')->get();
+            ->select('yearGoal', 'monthGoal', 'weekGoal', 'dayGoal')->get();
 
         return view("calendar", ['events' => $events])->with('sumPagesAll', $sumPagesAll)->with('goals', $goals)->with('currentPages', $currentPages);
     }
@@ -69,7 +70,7 @@ class CalendarController extends Controller
             'title' => 'required|numeric|gt:0'
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
         $userID = $user['id'];
 
         $pagesSave = Pages::updateOrCreate([

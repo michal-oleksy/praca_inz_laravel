@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Czytaj z nami</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/style_index.css')}}">
@@ -108,23 +108,11 @@
                                 
                                 <div class="col-auto border border-secondary">
                                     <form action="{{ route('home.edit') }}" method="post">
-                                        @csrf
-                                        
-                                        @isset($data->yearGoal, $data->monthGoal, $data->weekGoal, $data->dayGoal)
-
-                                        Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal" value="{{ $data->yearGoal }}"> <br>
-                                        Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal" value="{{ $data->monthGoal }}"> <br>
-                                        Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal" value="{{ $data->weekGoal }}"> <br>
-                                        Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal" value="{{ $data->dayGoal }}"> <br>
-                                       
-                                        @else
-
+                                        @csrf                                                                          
                                         Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal" > <br>
                                         Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal" > <br>
                                         Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal" > <br>
-                                        Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal" > <br>
-                                        @endisset
-
+                                        Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal" > <br>                                 
                                         <p>Pamiętaj, następujące po sobie <br>cele muszą być coraz mniejsze.</p>
                                         <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
                                         

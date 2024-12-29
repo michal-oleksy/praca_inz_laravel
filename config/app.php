@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Czytaj z nami'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,8 +77,9 @@ return [
     | set to any locale for which you plan to have translation strings.
     |
     */
-
-    'locale' => env('APP_LOCALE', 'en'),
+    
+    // 'locale' => env('APP_LOCALE', 'en'), stara wartość z en lub pl
+    'locale' => 'pl',
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
