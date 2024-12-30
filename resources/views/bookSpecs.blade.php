@@ -28,7 +28,44 @@
 </head>
 
 <body>
-
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="collapse navbar-collapse justify-content-center">
             <ul class="navbar-nav mr-auto">
@@ -176,11 +213,18 @@
 
                         </div>
                     </div>
-                    <hr>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5>Recenzje książki</h5>
+                </div>
+                <div class="card-body">
                     <div class="row">
 
+
                         <div class="col-auto">
-                            <h5>Recenzje książki:</h5>
+
                             @foreach($bookReviews as $review)
                             Recenzję utworzono:
                             {{ $review->updated_at  }}<br>
@@ -197,6 +241,7 @@
                             @endforeach
                         </div>
 
+
                         <div class="col-auto w-50">
                             @auth
 
@@ -211,21 +256,21 @@
                                 {{ old('review') }}
                                 </textarea>
                                 @error('review')
-                                    <div class="alert alert-danger my-2">
-                                        {{ $message }}
-                                    </div>
+                                <div class="alert alert-danger my-2">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                                 <button type="submit" class="btn btn-primary my-2" id="saveBtn">Dodaj recenzję</button>
                             </form>
                             <br>
-                            <p>LISTA 1</p>
-                            <p>LISTA 2</p>
-                            <p>LISTA 3</p>
+                            
                             @endauth
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
         </div>
     </main>
     <script>

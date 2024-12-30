@@ -20,6 +20,8 @@ Route::get('calendar', [App\Http\Controllers\CalendarController::class, 'index']
 Route::post('calendar', [App\Http\Controllers\CalendarController::class, 'save'])->name('calendar.save');
 
 Route::get('books', [App\Http\Controllers\BooksController::class, 'index'])->name('books.index');
+Route::post('booksStatus/{bookID}', [App\Http\Controllers\BooksController::class, 'updateStatus'])->name('books.updateStatus');
+
 
 Route::get('bookSpecs/{bookID}', [App\Http\Controllers\BookSpecsController::class, 'index'])->name('bookSpecs');
 

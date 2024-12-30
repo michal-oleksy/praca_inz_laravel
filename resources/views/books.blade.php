@@ -19,6 +19,44 @@
 </head>
 
 <body>
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+    </div>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="collapse navbar-collapse justify-content-center">
@@ -90,6 +128,7 @@
                         <th scope="col">Data pierwszego wydanian</th>
                         <th scope="col">Ilość stron</th>
                         <th scope="col">Wydawnictwo</th>
+                        <th scope="col">Status</th>
                     </tr>
                 </thead>
 
@@ -116,6 +155,22 @@
                     </td>
                     <td>
                         <p>{{ $book->publisher; }}</p>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <form class="mr-1" action="{{ route('books.updateStatus', ['bookID' => $book->id]) }}" method="POST">
+                                @csrf
+                                <button value="1" name="button" type="submit" class="btn btn-secondary btn-custom-space">Przeczytana</button>
+                            </form>
+                            <form action="{{ route('books.updateStatus', ['bookID' => $book->id]) }}" method="POST">
+                                @csrf
+                                <button value="2" name="button" type="submit" class="btn btn-success btn-custom-space">Czytam teraz</button>
+                            </form>
+                            <form action="{{ route('books.updateStatus', ['bookID' => $book->id]) }}" method="POST">
+                                @csrf
+                                <button value="3" name="button" type="submit" class="btn btn-primary btn-custom-space" >Do przeczytania</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
 

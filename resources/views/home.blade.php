@@ -20,6 +20,44 @@
 
 
 <body>
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+    </div>
     <div id="app">
         <nav class="navbar navbar-expand-sm bg-dark">
             <div class="collapse navbar-collapse justify-content-center">
@@ -65,7 +103,9 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 my-3">
                     <div class="card">
-                        <div class="card-header">Twoje dane</div>
+                        <div class="card-header">
+                            <h5>Twoje dane</h5>
+                        </div>
                         <div class="card-body">
                             @if (session('status'))
                             <div class="alert alert-success" role="alert">
@@ -85,41 +125,83 @@
                     </div>
 
                     <div class="card my-4">
-                        <div class="card-header">Twoje cele/Edytuj cele</div>
+                        <div class="card-header">
+                            <h5>Twoje cele/Edytuj cele</h5>
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-auto">
-                                     @isset($goals)
-                                        @foreach($goals as $data)
-                                        Twój cel roczny: {{ $data->yearGoal }} <br>
-                                        Twój cel miesięczny: {{ $data->monthGoal }} <br>
-                                        Twój cel tygodniowy: {{ $data->weekGoal }} <br>
-                                        Twój cel dzienny: {{ $data->dayGoal }} <br>
-                                        @endforeach
+                                    @isset($goals)
+                                    @foreach($goals as $data)
+                                    Twój cel roczny: {{ $data->yearGoal }} <br>
+                                    Twój cel miesięczny: {{ $data->monthGoal }} <br>
+                                    Twój cel tygodniowy: {{ $data->weekGoal }} <br>
+                                    Twój cel dzienny: {{ $data->dayGoal }} <br>
+                                    @endforeach
                                     @else
-                                        Twój cel roczny: brak <br>
-                                        Twój cel miesięczny: brak <br>
-                                        Twój cel tygodniowy: brak <br>
-                                        Twój cel dzienny: brak <br>
+                                    Twój cel roczny: brak <br>
+                                    Twój cel miesięczny: brak <br>
+                                    Twój cel tygodniowy: brak <br>
+                                    Twój cel dzienny: brak <br>
                                     @endisset
                                 </div>
-                               
 
-                                
+
+
                                 <div class="col-auto border border-secondary">
                                     <form action="{{ route('home.edit') }}" method="post">
-                                        @csrf                                                                          
-                                        Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal" > <br>
-                                        Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal" > <br>
-                                        Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal" > <br>
-                                        Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal" > <br>                                 
+                                        @csrf
+                                        Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal"> <br>
+                                        Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal"> <br>
+                                        Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal"> <br>
+                                        Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal"> <br>
                                         <p>Pamiętaj, następujące po sobie <br>cele muszą być coraz mniejsze.</p>
                                         <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
-                                        
+
                                     </form>
                                 </div>
                             </div>
 
+                        </div>
+
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Twoje książki</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <strong>Książki przeczytane</strong><br>
+                                    @foreach($bookList1 as $book)
+                                        {{ $book->title }}
+                                        {{ $book->status }} <br>
+                                    @endforeach
+
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-auto">
+                                <strong>Książki czytane obecnie</strong><br>
+                                    @foreach($bookList2 as $book)
+                                        {{ $book->title }}
+                                        {{ $book->status }} <br>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-auto">
+                                <strong>Książki do przeczytania</strong><br>
+                                    @foreach($bookList3 as $book)
+                                        {{ $book->title }}
+                                        {{ $book->status }} <br>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <hr>
                         </div>
 
                     </div>
@@ -135,4 +217,3 @@
 </body>
 
 </html>
-
