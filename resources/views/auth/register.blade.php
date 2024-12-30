@@ -20,6 +20,44 @@
 
 
 <body>
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+    </div>
     <div id="app">
         <nav class="navbar navbar-expand-sm bg-dark">
             <div class="collapse navbar-collapse justify-content-center">
@@ -50,21 +88,21 @@
             <div class="row ">
                 <div class="col-lg-4 offset-lg-4  my-3">
                     <div class="card">
-                    <div class="card-header">Zarejestruj się</div>
+                        <div class="card-header">Zarejestruj się</div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
-                               
-                                    <label for="email">{{ __('Adres e-mail') }}</label>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                <label for="email">{{ __('Adres e-mail') }}</label>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
-                               
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+
+
 
                                 <div class="form-group text-start">
                                     <label for="password">{{ __('Hasło') }}</label>

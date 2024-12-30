@@ -29,6 +29,44 @@
 </head>
 
 <body>
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+        <div class="snowflake">
+            <div class="inner">&#8226;</div>
+        </div>
+    </div>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="collapse navbar-collapse justify-content-center">
@@ -41,7 +79,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-light" href="{{ route('books.index') }}">Książki</a>
                 </li>
-                
+
                 @if (Route::has('login'))
                 @auth
                 <!-- KOMUNIKAT 'JESTEŚ ZALOGOWANY...' -->
@@ -78,7 +116,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-auto">
-                    <div class="card" >
+                    <div class="card">
                         <div class="card-body">
                             <div id="calendar"></div>
                         </div>
@@ -86,9 +124,9 @@
                 </div>
 
                 <div class="col-auto">
-                    <div class="card" >
+                    <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Twoje postępy</h5>   
+                            <h5 class="card-title">Twoje postępy</h5>
                             Twoje przeczytane strony od założenia konta: {{$sumPagesAll}}<br>
                             Twoje przeczytane strony w tym roku: {{ $currentPages[0] }}<br>
                             Twoje przeczytane strony w tym miesiącu: {{ $currentPages[1] }}<br>
@@ -96,41 +134,41 @@
                             Twoje przeczytane strony dzisiaj: {{ $currentPages[3] }}<br>
                             <hr>
                             @foreach($goals as $data)
-                                Twój cel roczny: {{ $data->yearGoal }}<br>
-                                Twój cel miesięczny: {{ $data->monthGoal }}<br>
-                                Twój cel tygodniowy: {{ $data->weekGoal }}<br>
-                                Twój cel dzieny: {{ $data->dayGoal }}
+                            Twój cel roczny: {{ $data->yearGoal }}<br>
+                            Twój cel miesięczny: {{ $data->monthGoal }}<br>
+                            Twój cel tygodniowy: {{ $data->weekGoal }}<br>
+                            Twój cel dzieny: {{ $data->dayGoal }}
                             @endforeach
                             <hr>
-                            
+
                             <!-- Cel roczny -->
                             @if( $currentPages[0] > $data->yearGoal )
-                                Cel roczny został spełniony. <img src="{{asset('images/ok-mark.png')}}">
+                            Cel roczny został spełniony. <img src="{{asset('images/ok-mark.png')}}">
                             @else
-                                Cel roczny nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
-                                                 
-                            @endif 
+                            Cel roczny nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
+
+                            @endif
                             <br>
-                            
+
                             <!-- Cel miesięczny -->
-                            @if( $currentPages[1] > $data->monthGoal ) 
-                                Cel miesięczny został spełniony. <img src="{{asset('images/ok-mark.png')}}">
+                            @if( $currentPages[1] > $data->monthGoal )
+                            Cel miesięczny został spełniony. <img src="{{asset('images/ok-mark.png')}}">
                             @else
-                                Cel miesięczny nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
+                            Cel miesięczny nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
                             @endif
                             <br>
                             <!-- Cel tygodniowy -->
-                            @if( $currentPages[2] > $data->weekGoal ) 
-                                Cel tygodniowy został spełniony. <img src="{{asset('images/ok-mark.png')}}">
+                            @if( $currentPages[2] > $data->weekGoal )
+                            Cel tygodniowy został spełniony. <img src="{{asset('images/ok-mark.png')}}">
                             @else
-                                Cel tygodniowy nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
+                            Cel tygodniowy nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
                             @endif
                             <br>
                             <!-- Cel dzienny -->
-                            @if( $currentPages[3] > $data->dayGoal ) 
-                                Cel dzienny został spełniony. <img src="{{asset('images/ok-mark.png')}}">
+                            @if( $currentPages[3] > $data->dayGoal )
+                            Cel dzienny został spełniony. <img src="{{asset('images/ok-mark.png')}}">
                             @else
-                                Cel dzienny nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
+                            Cel dzienny nie został spełniony. <img src="{{asset('images/no-mark.png')}}">
                             @endif
                             <br>
 
@@ -244,17 +282,10 @@
                             success: function(response) {
                                 $('#pagesModal').modal('hide');
                                 location.reload();
-                                // $('#calendar').fullCalendar('renderEvent',{
-                                //     'title': response.title,
-                                //     'date': response.date,
-                                // })
-                                // $('#calendar').fullCalendar( 'rerenderEvents' );
-
                             },
                             error: function(error) {
                                 if (error.responseJSON.errors) {
                                     $('#titleError').html("To pole jest wymagane");
-                                    // $('#titleError').html(error.responseJSON.errors.title);
                                 }
                             },
                         })

@@ -48,9 +48,7 @@ class BookSpecsController extends Controller
     }
 
     public function addRate(Request $request)
-    {
-        
-        
+    {   
 
         $validator = Validator::make($request->all(), [
             'rate' => 'required|numeric|gt:0|lt:6',
@@ -63,8 +61,6 @@ class BookSpecsController extends Controller
                              ->withErrors($validator)
                              ->withInput();
         }
-
-        
 
         $user = Auth::user();
         $userID = $user['id'];
@@ -80,9 +76,6 @@ class BookSpecsController extends Controller
 
     public function addReview(Request $request)
     {
-
-
-     
 
         $validator = Validator::make($request->all(), [
             'review' => 'required|min:1',

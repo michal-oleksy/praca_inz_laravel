@@ -29,10 +29,37 @@ class HomeController extends Controller
         $user = Auth::user();
         $userID = $user['id'];
 
-        $info = DB::table('users')->where('id', $userID)->select('firstName', 'lastName', 'email', 'nickName')->get();
-        $goals = DB::table('goals')->where('userID', $userID)->select('yearGoal', 'monthGoal', 'weekGoal', 'dayGoal')->get();
+        $info = DB::table('users')
+            ->where('id', $userID)
+            ->select('firstName', 'lastName', 'email', 'nickName')->get();
+        $goals = DB::table('goals')
+            ->where('userID', $userID)
+            ->select('yearGoal', 'monthGoal', 'weekGoal', 'dayGoal')->get();
 
-        return view('home')->with('info', $info)->with('goals', $goals);
+        $bookList1 = DB::table('status')
+            ->join('books', 'status.bookID', '=', 'books.id')
+            ->where('userID', $userID)
+            ->where('status', 1)
+            ->select('books.title', 'status.bookID', 'status.status')
+            ->get();
+
+        $bookList2 = DB::table('status')
+            ->join('books', 'status.bookID', '=', 'books.id')
+            ->where('userID', $userID)
+            ->where('status', 2)
+            ->select('books.title', 'status.bookID', 'status.status')
+            ->get();
+
+        $bookList3 = DB::table('status')
+            ->join('books', 'status.bookID', '=', 'books.id')
+            ->where('userID', $userID)
+            ->where('status', 3)
+            ->select('books.title', 'status.bookID', 'status.status')
+            ->get();
+        
+        
+        // dd($bookList[0][0]->title);
+        return view('home')->with('info', $info)->with('goals', $goals)->with('bookList1', $bookList1)->with('bookList2', $bookList2)->with('bookList3', $bookList3);
     }
 
     public function edit(Request $request)
