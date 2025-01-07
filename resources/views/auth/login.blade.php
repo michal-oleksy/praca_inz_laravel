@@ -18,7 +18,7 @@
     @vite(['resources/js/app.js'])
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <div class="snowflakes" aria-hidden="true">
         <div class="snowflake">
             <div class="inner">&#8226;</div>
@@ -63,6 +63,9 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ url('/') }}">Strona główna</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{{ route('books.index') }}">Książki</a>
                     </li>
                     @guest
                     @if (Route::has('login'))
@@ -152,6 +155,13 @@
             </div>
         </div>
     </div>
+    <footer style="background-color: rgb(131,43,33); border-top: 1px solid black;" class="footer mt-auto py-3">
+        <div class="container">
+            <span class="text-body-secondary"><strong>Czytajznami.pl 2025</strong></span>
+        </div>
+    </footer>
 </body>
+
+
 
 </html>

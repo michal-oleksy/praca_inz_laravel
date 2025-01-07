@@ -30,34 +30,34 @@ class CalendarController extends Controller
         foreach ($pages as $page) {
             $events[] = [
                 'id' => $page->id,
-                'title' => $page->title,
+                'title' => $page->pages,
                 'date' => $page->date,
             ];
         }
 
         $sumPagesAll = DB::table('pages')
             ->where('userID', $userID)
-            ->sum('title');
+            ->sum('pages');
 
         $currentYear = DB::table('pages')
             ->where('userID', $userID)
             ->whereYear('date', Carbon::now()->year)
-            ->sum('title');
+            ->sum('pages');
 
         $currentMonth = DB::table('pages')
             ->where('userID', $userID)
             ->whereMonth('date', Carbon::now()->month)
-            ->sum('title');
+            ->sum('pages');
 
         $currentWeek = DB::table('pages')
             ->where('userID', $userID)
             ->whereBetween('date', [Carbon::now()->startOfWeek(Carbon::SUNDAY), Carbon::now()->endOfWeek(Carbon::SATURDAY)])
-            ->sum('title');
+            ->sum('pages');
 
         $currentDay = DB::table('pages')
             ->where('userID', $userID)
             ->whereDate('date', Carbon::today())
-            ->sum('title');
+            ->sum('pages');
 
         $currentPages = [$currentYear, $currentMonth, $currentWeek, $currentDay];
 
@@ -81,7 +81,7 @@ class CalendarController extends Controller
             'date' => $request->date,
         ], [
             'userID' => $userID,
-            'title' => $request->title,
+            'pages' => $request->title,
 
         ]);
 

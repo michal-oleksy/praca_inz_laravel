@@ -19,7 +19,7 @@
 </head>
 
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <div class="snowflakes" aria-hidden="true">
         <div class="snowflake">
             <div class="inner">&#8226;</div>
@@ -174,8 +174,7 @@
                                 <div class="col-auto">
                                     <strong>Książki przeczytane</strong><br>
                                     @foreach($bookList1 as $book)
-                                        {{ $book->title }}
-                                        {{ $book->status }} <br>
+                                    {{ $book->title }}  <br>
                                     @endforeach
 
                                 </div>
@@ -184,20 +183,18 @@
                             <hr>
                             <div class="row">
                                 <div class="col-auto">
-                                <strong>Książki czytane obecnie</strong><br>
+                                    <strong>Książki czytane obecnie</strong><br>
                                     @foreach($bookList2 as $book)
-                                        {{ $book->title }}
-                                        {{ $book->status }} <br>
+                                    {{ $book->title }}<br>
                                     @endforeach
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-auto">
-                                <strong>Książki do przeczytania</strong><br>
+                                    <strong>Książki do przeczytania</strong><br>
                                     @foreach($bookList3 as $book)
-                                        {{ $book->title }}
-                                        {{ $book->status }} <br>
+                                    {{ $book->title }} <br>                                 
                                     @endforeach
                                 </div>
                             </div>
@@ -212,7 +209,11 @@
         </div>
     </div>
     </div>
-
+    <footer style="background-color: rgb(131,43,33); border-top: 1px solid black;" class="footer mt-auto py-3">
+        <div class="container">
+            <span class="text-body-secondary"><strong>Czytajznami.pl 2025</strong></span>
+        </div>
+    </footer>
 
 </body>
 

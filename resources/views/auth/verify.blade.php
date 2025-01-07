@@ -9,9 +9,9 @@
 
                 <div class="card-body">
                     @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ __('A fresh verification link has been sent to your email address.') }}
+                    </div>
                     @endif
 
                     {{ __('Before proceeding, please check your email for a verification link.') }}
@@ -25,4 +25,10 @@
         </div>
     </div>
 </div>
+
+<footer style="background-color: rgb(131,43,33); border-top: 1px solid black;" class="footer mt-auto py-3">
+    <div class="container">
+        <span class="text-body-secondary"><strong>Czytajznami.pl 2025</strong></span>
+    </div>
+</footer>
 @endsection

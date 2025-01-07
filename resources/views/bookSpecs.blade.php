@@ -27,7 +27,7 @@
     @endif
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <div class="snowflakes" aria-hidden="true">
         <div class="snowflake">
             <div class="inner">&#8226;</div>
@@ -263,7 +263,7 @@
                                 <button type="submit" class="btn btn-primary my-2" id="saveBtn">Dodaj recenzję</button>
                             </form>
                             <br>
-                            
+
                             @endauth
                         </div>
                     </div>
@@ -299,7 +299,11 @@
                 console.error(error);
             });
     </script>
-
+    <footer style="background-color: rgb(131,43,33); border-top: 1px solid black;" class="footer mt-auto py-3">
+        <div class="container">
+            <span class="text-body-secondary"><strong>Czytajznami.pl 2025</strong></span>
+        </div>
+    </footer>
 
 
 </body>
