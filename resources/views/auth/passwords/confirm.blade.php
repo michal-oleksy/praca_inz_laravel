@@ -1,62 +1,6 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/style_index.css')}}">
-
-    <!-- Scripts -->
-    <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
-    @vite(['resources/js/app.js'])
-</head>
-
-<body class="d-flex flex-column min-vh-100">
-    <div class="snowflakes" aria-hidden="true">
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-    </div>
+@section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -102,14 +46,4 @@
             </div>
         </div>
     </div>
-
-    <footer style="background-color: rgb(131,43,33); border-top: 1px solid black;" class="footer mt-auto py-3">
-        <div class="container">
-            <span class="text-body-secondary"><strong>Czytajznami.pl 2025</strong></span>
-        </div>
-    </footer>
-</body>
-
-
-
-</html>
+@endsection

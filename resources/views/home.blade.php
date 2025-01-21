@@ -1,220 +1,164 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ asset('/images/favicon1.jpg') }}">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('content')
 
-    <title>Czytaj z nami</title>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 ">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Twoje dane</h5>
+                </div>
+                <div class="card-body">
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/style_index.css')}}">
-
-    <!-- Scripts -->
-    <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
-    @vite(['resources/js/app.js'])
-</head>
-
-
-<body class="d-flex flex-column min-vh-100">
-    <div class="snowflakes" aria-hidden="true">
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-        <div class="snowflake">
-            <div class="inner">&#8226;</div>
-        </div>
-    </div>
-    <div id="app">
-        <nav class="navbar navbar-expand-sm bg-dark">
-            <div class="collapse navbar-collapse justify-content-center">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ url('/') }}">Strona główna</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ route('books.index') }}">Książki</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ route('home') }}">Twój profil</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ route('calendar.index') }}">Twój kalendarz</a>
-                    </li>
-                    <li class="nav-item dropdown ">
-                        <a id="navbarDropdown ms-auto" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Zalogowany użytkownik: {{ Auth::user()->firstName }}
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                {{ __('Wyloguj się') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                </ul>
-
+                    {{ __('Jesteś zalogowany! Witamy!') }}
+                    Twoje dane:<br>
+                    @foreach($info as $data)
+                    Imię: {{$data->firstName}}<br>
+                    Nazwisko: {{$data->lastName}}<br>
+                    Email: {{$data->email}}<br>
+                    Pseudonim: {{$data->nickName}}<br>
+                    @endforeach
+                </div>
             </div>
-        </nav>
 
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 my-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Twoje dane</h5>
-                        </div>
-                        <div class="card-body">
-                            @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                            @endif
-
-                            {{ __('Jesteś zalogowany! Witamy!') }}
-                            Twoje dane:<br>
-                            @foreach($info as $data)
-                            Imię: {{$data->firstName}}<br>
-                            Nazwisko: {{$data->lastName}}<br>
-                            Email: {{$data->email}}<br>
-                            Pseudonim: {{$data->nickName}}<br>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="card my-4">
-                        <div class="card-header">
-                            <h5>Twoje cele/Edytuj cele</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-auto">
-                                    @isset($goals)
-                                    @foreach($goals as $data)
-                                    Twój cel roczny: {{ $data->yearGoal }} <br>
-                                    Twój cel miesięczny: {{ $data->monthGoal }} <br>
-                                    Twój cel tygodniowy: {{ $data->weekGoal }} <br>
-                                    Twój cel dzienny: {{ $data->dayGoal }} <br>
-                                    @endforeach
-                                    @else
-                                    Twój cel roczny: brak <br>
-                                    Twój cel miesięczny: brak <br>
-                                    Twój cel tygodniowy: brak <br>
-                                    Twój cel dzienny: brak <br>
-                                    @endisset
-                                </div>
-
-
-
-                                <div class="col-auto border border-secondary">
-                                    <form action="{{ route('home.edit') }}" method="post">
-                                        @csrf
-                                        Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal"> <br>
-                                        Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal"> <br>
-                                        Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal"> <br>
-                                        Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal"> <br>
-                                        <p>Pamiętaj, następujące po sobie <br>cele muszą być coraz mniejsze.</p>
-                                        <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
-
-                                    </form>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Twoje książki</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <strong>Książki przeczytane</strong><br>
-                                    @foreach($bookList1 as $book)
-                                    {{ $book->title }}  <br>
-                                    @endforeach
-
-                                </div>
-
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-auto">
-                                    <strong>Książki czytane obecnie</strong><br>
-                                    @foreach($bookList2 as $book)
-                                    {{ $book->title }}<br>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-auto">
-                                    <strong>Książki do przeczytania</strong><br>
-                                    @foreach($bookList3 as $book)
-                                    {{ $book->title }} <br>                                 
-                                    @endforeach
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
-
-                    </div>
+            <div class="card my-4">
+                <div class="card-header">
+                    <h5>Twoje cele/Edytuj cele</h5>
 
 
                 </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto">
+
+
+                            @if ($goals->isEmpty())
+                            Nie masz ustawionych jeszcze żadnych celi czytelniczych. <br>
+                            Może zrobić to tutaj.
+                            @else
+
+
+                            @foreach($goals as $data)
+                            @if(isset($data->yearGoal))
+                            Twój cel roczny: {{ $data->yearGoal }}<br>
+                            @else
+                            Twój cel roczny: nie ustawiony<br>
+                            @endif
+
+                            @if(isset($data->monthGoal))
+                            Twój cel miesięczny: {{ $data->monthGoal }}<br>
+                            @else
+                            Twój cel miesięczny: nie ustawiony<br>
+                            @endif
+
+                            @if(isset($data->weekGoal))
+                            Twój cel tygodniowy: {{ $data->weekGoal }}<br>
+                            @else
+                            Twój cel tygodniowy: nie ustawiony<br>
+                            @endif
+
+                            @if(isset($data->dayGoal))
+                            Twój cel dzienny: {{ $data->dayGoal }}<br>
+                            @else
+                            Twój cel dzienny: nie ustawiony<br>
+                            @endif
+                            @endforeach
+
+
+
+
+                            @endif
+                        </div>
+
+
+
+                        <div class="col-auto border border-secondary">
+                            <form id="goalsForm" action="{{ route('home.edit') }}" method="post">
+                                @csrf
+                                Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal"> <br>
+                                Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal"> <br>
+                                Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal"> <br>
+                                Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal"> <br>
+                                <p>Pamiętaj, następujące po sobie <br>cele muszą być coraz mniejsze.</p>
+                                <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
+
+                            </form>
+                        </div>
+
+                        @if($errors->any())
+                        <div class="col-auto">
+                            <div class="alert alert-danger alert-dismissible fade show my-2">
+                                
+                                <h5>{{$errors->first()}}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+
+                </div>
+
             </div>
+            <div class="card my-2">
+                <div class="card-header">
+                    <h5>Twoje książki</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto">
+                            <strong>Książki przeczytane</strong><br>
+                            @foreach($bookList1 as $book)
+                            {{ $book->title }} <br>
+                            @endforeach
+
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-auto">
+                            <strong>Książki czytane obecnie</strong><br>
+                            @foreach($bookList2 as $book)
+                            {{ $book->title }}<br>
+                            @endforeach
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-auto">
+                            <strong>Książki do przeczytania</strong><br>
+                            @foreach($bookList3 as $book)
+                            {{ $book->title }} <br>
+                            @endforeach
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+            </div>
+
+
         </div>
     </div>
-    </div>
-    <footer style="background-color: rgb(131,43,33); border-top: 1px solid black;" class="footer mt-auto py-3">
-        <div class="container">
-            <span class="text-body-secondary"><strong>Czytajznami.pl 2025</strong></span>
-        </div>
-    </footer>
+</div>
+<script>
+    document.getElementById('goalsForm').onsubmit = function(e) {
+        var yearGoal = document.getElementById('yearGoal').value;
+        var monthGoal = document.getElementById('monthGoal').value;
+        var weekGoal = document.getElementById('weekGoal').value;
+        var dayGoal = document.getElementById('dayGoal').value;
 
-</body>
+        if (!yearGoal && !monthGoal && !weekGoal && !dayGoal) {
+            e.preventDefault();
+            alert('Musisz wypełnić co najmniej jedno pole.');
+        }
+    };
+</script>
 
-</html>
+@endsection

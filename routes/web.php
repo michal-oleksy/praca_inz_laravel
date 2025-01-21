@@ -28,5 +28,13 @@ Route::get('bookSpecs/{bookID}', [App\Http\Controllers\BookSpecsController::clas
 Route::post('bookSpecs/addRate', [App\Http\Controllers\BookSpecsController::class, 'addRate'])->name('bookSpecs.addRate');
 Route::post('bookSpecs/addReview', [App\Http\Controllers\BookSpecsController::class, 'addReview'])->name('bookSpecs.addReview');
 
+Route::get('userList', [App\Http\Controllers\UserListController::class, 'index'])->name('userList.index');
+
+Route::get('userList/{userID}', [App\Http\Controllers\UserSpecsController::class, 'index'])->name('userSpecs.index');
+
+Route::get('friends', [App\Http\Controllers\FriendsController::class, 'index'])->name('friends.index');
+
+
+
 
 
