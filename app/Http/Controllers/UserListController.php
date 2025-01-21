@@ -11,9 +11,15 @@ use Illuminate\Support\Facades\Auth;
 class UserListController extends Controller
 {
     public function index(){
-        $users = User::all();
+        $user = Auth::user();
+        $userID = $user['id'];
 
-        return view('userList', ['users' => $users]);
+        $users = User::all();
+            
+            
+        
+
+        return view('userList', ['users' => $users])->with('userID', $userID);
     }
 
     

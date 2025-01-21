@@ -74,27 +74,48 @@
 
 
                             @endif
+
                         </div>
 
-
+                        <div class="col-auto">
+                            <div class="vl"></div>
+                        </div>
 
                         <div class="col-auto border border-secondary">
                             <form id="goalsForm" action="{{ route('home.edit') }}" method="post">
-                                @csrf
-                                Roczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal"> <br>
-                                Miesięczny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal"> <br>
-                                Tygodniowy: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal"> <br>
-                                Dzienny: <input oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal"> <br>
-                                <p>Pamiętaj, następujące po sobie <br>cele muszą być coraz mniejsze.</p>
-                                <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
+                                <div class="form-group">
+                                    @csrf
+                                    <div class="d-flex align-items-center my-2">
+                                        <label for="yearGoal" class="me-2">Roczny:</label>
+                                        <input class="form-control" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="yearGoal" id="yearGoal">
+                                    </div>
 
+
+                                    <div class="d-flex align-items-center my-2">
+                                        <label for="monthGoal" class="me-2">Miesięczny: </label>
+                                        <input class="form-control" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="monthGoal" id="monthGoal">
+                                    </div>
+
+                                    <div class="d-flex align-items-center my-2">
+                                        <label for="weekGoal" class="me-2">Tygodniowy: </label>
+                                        <input class="form-control" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="weekGoal" id="weekGoal">
+                                    </div>
+
+
+                                    <div class="d-flex align-items-center my-2">
+                                        <label for="dayGoal" class="me-2">Dzienny: </label>
+                                        <input class="form-control" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" style="width:100px;" class="my-1" type="number" name="dayGoal" id="dayGoal"> <br>
+                                    </div>
+                                    <p>Pamiętaj, następujące po sobie <br>cele muszą być coraz mniejsze.</p>
+                                    <button type="submit" class="btn btn-primary my-2" id="saveBtn">Edytuj</button>
+                                </div>
                             </form>
                         </div>
 
                         @if($errors->any())
                         <div class="col-auto">
                             <div class="alert alert-danger alert-dismissible fade show my-2">
-                                
+
                                 <h5>{{$errors->first()}}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>

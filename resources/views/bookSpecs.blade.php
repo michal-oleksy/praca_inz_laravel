@@ -102,7 +102,7 @@
 
 
                 <div class="col-auto">
-
+                    
                     @foreach($bookReviews as $review)
                     Recenzję utworzono:
                     {{ $review->updated_at  }}<br>
@@ -115,12 +115,16 @@
 
 
                     {!! $review->review !!}
-                   
+
 
                     <hr>
                     @endforeach
                 </div>
 
+
+
+            </div>
+            <div class="row">
 
                 <div class="col-auto w-50">
                     @auth
