@@ -15,6 +15,9 @@ use Multicaret\Acquaintances\Traits\CanLike;
 use Multicaret\Acquaintances\Traits\CanBeLiked;
 use Multicaret\Acquaintances\Traits\CanRate;
 use Multicaret\Acquaintances\Traits\CanBeRated;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 // 
 class User extends Authenticatable
 {

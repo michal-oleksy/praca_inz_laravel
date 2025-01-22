@@ -4,7 +4,7 @@
 
 
 <div class="container">
-    <table class="table table-bordered table-hover table-sm w-autoalign-middle">
+    <table class="table table-bordered table-hover table-sm w-autoalign-middle rounded-4 overflow-hidden">
         <thead>
             <tr>
                 <!-- <th scope="col">#</th> -->
