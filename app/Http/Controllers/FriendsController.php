@@ -3,12 +3,7 @@
 namespace App\Http\Controllers;
 
 use Multicaret\Acquaintances\Traits\Friendable;
-use Multicaret\Acquaintances\Traits\CanFollow;
-use Multicaret\Acquaintances\Traits\CanBeFollowed;
-use Multicaret\Acquaintances\Traits\CanLike;
-use Multicaret\Acquaintances\Traits\CanBeLiked;
-use Multicaret\Acquaintances\Traits\CanRate;
-use Multicaret\Acquaintances\Traits\CanBeRated;
+
 use App\Models\User;
 use DB;
 
@@ -18,50 +13,94 @@ use Illuminate\Support\Facades\Auth;
 class FriendsController extends Controller
 {
     use Friendable;
-    use CanFollow, CanBeFollowed;
-    use CanLike, CanBeLiked;
-    use CanRate, CanBeRated;
+
     public function index()
     {
         $user = auth()->user();
-        $allAcceptedFrirends = $user->getAcceptedFriendships();
-        $pendingFriendships = $user->getPendingFriendships();
+        $allAcceptedFriends = $user->getFriends(); //zaakceptowani znajomi
 
-        $recipient_id = $pendingFriendships->pluck('recipient_id');
 
-        // dd($senderID);
 
-        $pendingFriendshipsForView = DB::table('users')
-            ->select('users.id', 'users.firstName', 'users.lastName', 'users.email')
-            ->whereIn('users.id', $recipient_id)
+        $friendRequests = $user->getFriendRequests(); //zaproszenia od innych dla nas
+
+        $myRequests = $user->getPendingFriendships(); //nasze zaproszenia dla innych
+
+
+        $comingInvitationsUsersIds = $friendRequests->pluck('sender_id'); //id wysyłających zaproszenia
+
+        $myInvitationsUsersIds = $myRequests->pluck('recipient_id'); //id odbiorców zaproszeń
+
+        $pendingInvitationsFriends = User::whereIn('id', $comingInvitationsUsersIds)
+            ->select('id', 'firstName', 'lastName', 'email')
             ->get();
 
-        // dd($pendingFriendshipsForView);
+        $sendInvitationsFriends = User::whereIn('id', $myInvitationsUsersIds)
+            ->select('id', 'firstName', 'lastName', 'email')
+            ->where('id', '!=', $user->id)
+            ->get();
+
+        // dd($sendInvitationsFriends);
 
         return view('friends')
-        ->with('pendingFriendshipsForView', $pendingFriendshipsForView)
-        ->with('allAcceptedFrirends', $allAcceptedFrirends);
+            ->with('allAcceptedFriends', $allAcceptedFriends)
+            ->with('friendRequests', $friendRequests)
+            ->with('pendingInvitationsFriends', $pendingInvitationsFriends)
+            ->with('sendInvitationsFriends', $sendInvitationsFriends);
     }
 
     public function addFriend($id)
     {
         $user = auth()->user();
         $friend = User::find($id);
-        $user->befriend($friend);
-        return back();
+        if ($friend) {
+            $user->befriend($friend);
+            return redirect()->to('userList')->with('success', 'Poprawnie wysłano zaproszenie do znajomych.');
+        } else {
+            return redirect()->to('userList')->with('error', 'Nie udało się wysłać zaproszenia do znajomych.');
+        }
+    }
+
+    public function denyFriend($id)
+    {
+        $user = Auth::user();
+        $friend = User::find($id);
+
+
+        if ($friend) {
+            $user->denyFriendRequest($friend);
+            return redirect()->to('friends')->with('warning', 'Poprawnie odmówiono przyjęcia do znajomych.');
+        } 
+
+        return redirect()->to('friends')->with('error', 'Nie udało się odmówić zaproszenia do znajomych.');
+        
     }
 
     public function acceptFriend($id)
+    {
+
+        $user = Auth::user(); // Poprawione
+        $friend = User::find($id);
+
+        if ($friend) {
+            $user->acceptFriendRequest($friend);
+            return redirect()->back()->with('success', 'Zaproszenie zostało zaakceptowane.');
+        }
+
+        return redirect()->back()->with('error', 'Błąd. Nie udało się zaakceptować zaproszenia.');
+        
+        
+    }
+
+    public function cancelFriendRequest($id)
     {
         $user = Auth::user();
         $friend = User::find($id);
 
         if ($friend) {
-            // dd($id);
-            $user->acceptFriendRequest($friend);
-            return redirect()->back()->with('success', 'Friend request accepted.');
+            $user->unfriend($friend);
+            return back()->with('warning', 'Usunięto znajomego lub zaproszenie do znajomych zostało anulowane.');
         }
 
-        return redirect()->back()->with('error', 'User not found.');
+        return back()->with('error', 'Nie udało się usunąć znajomego lub anulować zaproszenia do znajomych.');
     }
 }

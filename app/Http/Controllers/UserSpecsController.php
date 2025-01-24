@@ -29,9 +29,15 @@ class UserSpecsController extends Controller
             ->select('books.title', 'ratings.rate', 'reviews.review')
             ->get();
        
+       
+
+        $friend = User::find($userID);
+
+        $isFriend = auth()->user()->isFriendWith($friend);
 
 
+        
 
-        return view('userSpecs', compact('users', 'goals', 'ratings'));
+        return view('userSpecs', compact('users', 'goals', 'ratings','isFriend'));
     }
 }

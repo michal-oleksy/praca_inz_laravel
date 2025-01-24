@@ -15,58 +15,149 @@
 
 
 
-                    @if(isset($allAcceptedFrirends))
-                    @if(count($allAcceptedFrirends) > 0)
-                    {{$allAcceptedFrirends}}
-                    <!-- {{ $sender[0]->sender_id }} -->
-                    <!-- @foreach ($sender as $sender)
-                                Twój znajomy to: {{  $sender->sender_id }}
-                            @endforeach -->
-                    @else
-                    Nie masz żadnych znajomych
-                    @endif
-                    @endif
-                </div>
-            </div>
 
+                    @if(isset($allAcceptedFriends))
+                    @if(count($allAcceptedFriends) > 0)
 
-            <div class="card my-2">
-                <div class="card-header">
-                    <h5>Lista oczekująca</h5>
-                </div>
-                <div class="card-body">
-
-                    @if(isset($pendingFriendshipsForView))
-
-                    @if(count($pendingFriendshipsForView) > 0)
-                    @foreach($pendingFriendshipsForView as $user)
+                    @foreach($allAcceptedFriends as $user)
                     <div class="row my-2">
-                        <div class="col-md-4">
-                            &#128900;
-                            id: {{ $user->id }}
-                            {{ $user->firstName }}
-                            {{ $user->lastName }}
-                            Email: {{ $user->email }}
+                        <div class="col-auto">
+
+                            <strong>Imię:</strong> {{ $user->firstName }}<br>
+                            <strong>Nazwisko:</strong> {{ $user->lastName }}<br>
+                            <strong>Email:</strong> {{ $user->email }}
+
+                            <hr>
                         </div>
-                        <div class="col-md-4">
-
-
-                            <a href="{{ route('friends.acceptFriend', ['userID' => $user->id]) }}" class="btn btn-success">Akceptuj</a>
-
-                            <form action="{{ route('friends.acceptFriend', ['userID' => $user->id]) }}" method="POST">
+                        <div class="col-auto">
+                            <form action="{{ route('friends.cancelFriendRequest', ['userID' => $user->id]) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-primary">Accept Friend Request</button>
+                                <button type="submit" class="btn btn-danger">Usuń znajomego</button>
                             </form>
-                            {{-- <a href="{{ route('rejectFriend', ['id' => $user->id]) }}" class="btn btn-danger">Odrzuć</a> --}}
                         </div>
                     </div>
                     @endforeach
                     @else
-                    Nie masz nikogo na liście oczekującej
+                    Nie masz żadnych znajomych
                     @endif
                     @endif
+
+
+
                 </div>
             </div>
+
+
+
+
+            <div class="card my-2">
+                <div class="card-header">
+                    <h5>Otrzymane zaproszenia</h5>
+                </div>
+                <div class="card-body">
+
+
+                    @if(isset($pendingInvitationsFriends))
+
+                    @if(count($pendingInvitationsFriends) > 0)
+                    @foreach($pendingInvitationsFriends as $user)
+                    <div class="row my-2 ">
+                        <div class="col-auto ">
+
+                            Id: {{ $user->id }} <br>
+                            Imię: {{ $user->firstName }} <br>
+                            Nazwisko: {{ $user->lastName }} <br>
+                            Email: {{ $user->email }}
+                            
+                        </div>
+                        <div class="col-auto">
+                            <form action="{{ route('friends.acceptFriend', ['userID' => $user->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-success">Akceptuj</button>
+                            </form>
+                        </div>
+                        <div class="col-auto">
+                            <form action="{{ route('friends.denyFriend', ['userID' => $user->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Odrzuć</button>
+                            </form>
+                        </div>
+                        <hr class="my-2">
+                    </div>
+
+
+                    @endforeach
+                    @else
+                    Nikt jeszcze nie wysłał ci zaproszenia.
+                    @endif
+                    @endif
+
+
+
+                </div>
+            </div>
+
+
+            <!-- sendInvitationsFriends -->
+
+            <div class="card my-2">
+                <div class="card-header">
+                    <h5>Wysłane zaproszenia</h5>
+                </div>
+                <div class="card-body">
+
+
+                    @if(isset($sendInvitationsFriends))
+
+                    @if(count($sendInvitationsFriends) > 0)
+                    @foreach($sendInvitationsFriends as $user)
+                    <div class="row my-2 ">
+                        <div class="col-auto ">
+
+                            Id: {{ $user->id }} <br>
+                            Imię: {{ $user->firstName }} <br>
+                            Nazwisko: {{ $user->lastName }} <br>
+                            Email: {{ $user->email }}
+                            <hr>
+                        </div>
+
+                        <div class="col-auto">
+                            <form action="{{ route('friends.cancelFriendRequest', ['userID' => $user->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Anuluj</button>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+
+                    @endforeach
+                    @else
+                    Nikomu jeszcze nie wysłałeś zaproszenia.
+                    @endif
+                    @endif
+
+
+
+                </div>
+            </div>
+
+            @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+            @if (session('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+            @endif
         </div>
     </div>
 </div>

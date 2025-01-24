@@ -35,6 +35,9 @@ Route::get('userList/{userID}', [App\Http\Controllers\UserSpecsController::class
 Route::get('friends', [App\Http\Controllers\FriendsController::class, 'index'])->name('friends.index');
 Route::get('addFriend/{userID}', [App\Http\Controllers\FriendsController::class, 'addFriend'])->name('friends.addFriend');
 Route::post('acceptFriend/{userID}', [App\Http\Controllers\FriendsController::class, 'acceptFriend'])->name('friends.acceptFriend');
+Route::post('denyFriend/{userID}', [App\Http\Controllers\FriendsController::class, 'denyFriend'])->name('friends.denyFriend');
+Route::post('cancelFriendRequest/{userID}', [App\Http\Controllers\FriendsController::class, 'cancelFriendRequest'])->name('friends.cancelFriendRequest');
+
 
 
 

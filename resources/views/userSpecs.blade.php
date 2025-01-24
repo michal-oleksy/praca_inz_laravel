@@ -4,6 +4,11 @@
 
 
 <div class="container">
+    @isset($users->privacy)
+    @if($users->privacy == 1 || ($users->privacy == 2 && isset($isFriend) && $isFriend == true))
+    
+
+    
 
 
     <div class="card my-4">
@@ -13,7 +18,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-auto">
-                    
+
                     Imię: {{ $users['firstName'] }} <br>
                     Nazwisko: {{ $users['lastName'] }} <br>
                     Pseudonim:
@@ -33,6 +38,15 @@
                     Inna/Nie chcę podawać
                     @endif <br>
 
+                </div>
+                <div class="col-auto">
+
+                    @if($users->privacy == 2 && isset($isFriend))
+                    <div class="alert alert-success" role="alert">
+                        Jesteście znajomymi!
+                    </div>
+                    <a href="{{ route('friends.cancelFriendRequest', ['userID' => $users['id']]) }}" class="btn btn-danger">Usuń znajomego</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -76,23 +90,63 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-auto">
-                @isset($ratings)
+                    @isset($ratings)
                     @foreach($ratings as $rate=>$data)
-                        Książka: {{$data->title}} <br>
-                        Recenzja: {!!$data->review!!} <br>
-                        Ocena: {{$data->rate}} <br>
-                        <hr>
+                    Książka: {{$data->title}} <br>
+                    Recenzja: {!!$data->review!!} <br>
+                    Ocena: {{$data->rate}} <br>
+                    <hr>
                     @endforeach
-                @endisset
+                    @endisset
 
-                @if (empty($ratings) || $ratings->isEmpty())
+                    @if (empty($ratings) || $ratings->isEmpty())
                     Użytkownik nie wystawił żadnych opinii <br>
-                @endif
+                    @endif
 
                 </div>
             </div>
         </div>
     </div>
+    @endif
+
+    @if($users->privacy == 2 && (isset($isFriend) || $isFriend == false))
+    <div class="card my-4">
+        <div class="card-header">
+            <h5>Informacja</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-auto">
+
+                Profil publiczny jest tylko dla znajomych.
+
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    @endif
+
+
+    @if($users->privacy == 3)
+    <div class="card my-4">
+        <div class="card-header">
+            <h5>Informacja</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-auto">
+
+                    Użytkownik nie udostępnia informacji publicznie.
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    @endisset
+
+
 
 </div>
 
