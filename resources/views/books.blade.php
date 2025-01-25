@@ -2,8 +2,24 @@
 
 @section('content')
 
+<div class="container">
+    <div class="row my-2 ">
+        <div class="col-md-3">
+
+            <form action="{{ route('books.search') }}" method="POST">
+                <div class="input-group rounded">
+                    @csrf
+                    <input name="search" id="search" type="search" class="form-control rounded" placeholder="Wyszukaj" aria-label="Wyszukaj" aria-describedby="Wyszukaj-addon" />
+                    <button type="submit" class="btn btn-primary">Wyszukaj</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 <div class="container">
+    @if(isset($books) && count($books) > 0)
     <table class="table table-bordered table-hover table-sm w-autoalign-middle rounded-4 overflow-hidden">
         <thead>
             <tr>
@@ -11,7 +27,7 @@
                 <th scope="col">Autor</th>
                 <th scope="col">Tytuł</th>
                 <th scope="col">Gatunek</th>
-                <th scope="col">Data pierwszego wydanian</th>
+                <th scope="col">Data pierwszego wydania</th>
                 <th scope="col">Ilość stron</th>
                 <th scope="col">Wydawnictwo</th>
                 <th scope="col">Status</th>
@@ -62,6 +78,18 @@
 
         @endforeach
     </table>
+    @elseif(isset($books) && count($books) == 0)
+    <div class="card">
+        <div class="card-header">
+            <h5>Wyniki wyszukiwania
+        </div>
+        <div class="card-body">
+            Nie znaleziono książek spełniających kryteria wyszukiwania.
+        </div>
+    </div>
+
+    @endif
+
 </div>
 
 

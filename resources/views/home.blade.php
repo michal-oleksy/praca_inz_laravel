@@ -10,20 +10,53 @@
                     <h5>Twoje dane</h5>
                 </div>
                 <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
+                    <div class="row">
+                        <div class="col-auto">
+                            @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                            @endif
 
-                    {{ __('Jesteś zalogowany! Witamy!') }}
-                    Twoje dane:<br>
-                    @foreach($info as $data)
-                    Imię: {{$data->firstName}}<br>
-                    Nazwisko: {{$data->lastName}}<br>
-                    Email: {{$data->email}}<br>
-                    Pseudonim: {{$data->nickName}}<br>
-                    @endforeach
+                            {{ __('Witamy! Jesteś zalogowany! ') }}<br>
+                            Twoje dane:<br>
+                            @foreach($info as $data)
+                            <strong>Imię</strong>: {{$data->firstName}}<br>
+                            <strong>Nazwisko:</strong> {{$data->lastName}}<br>
+                            <strong>Email:</strong> {{$data->email}}<br>
+                            <strong>Pseudonim:</strong> {{$data->nickName}}<br>
+                            @endforeach
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-auto">
+                        <hr>
+                            Twoje ustawienie prywatności:<br>
+                            @if(isset($data->privacy))
+                            @if($data->privacy == 1)
+                            <strong>Twoje dane są publiczne</strong><br>
+                            @elseif($data->privacy == 2)
+                            <strong>Twoje dane są dostępne tylko dla znajomych</strong><br>
+                            @elseif($data->privacy == 3)
+                            <strong>Twoje dane są dostępne tylko dla ciebie i nikogo innego.</strong><br>
+                            @endif
+                            @endif
+                            Zmień ustawienia prywatności:
+                            <form action="{{route('home.editPrivacySetting')}}" method="post">
+                                @csrf
+                                <select name="privacy" id="privacy" class="form-select my-2">
+                                    <option value="1">Publiczne</option>
+                                    <option value="2">Dla znajomych</option>
+                                    <option value="3">Prywatne</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary my-2">Zmień</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -46,27 +79,27 @@
 
                             @foreach($goals as $data)
                             @if(isset($data->yearGoal))
-                            Twój cel roczny: {{ $data->yearGoal }}<br>
+                            <strong>Twój cel roczny:</strong> {{ $data->yearGoal }}<br>
                             @else
-                            Twój cel roczny: nie ustawiony<br>
+                            <strong>Twój cel roczny:</strong> nie ustawiony<br>
                             @endif
 
                             @if(isset($data->monthGoal))
-                            Twój cel miesięczny: {{ $data->monthGoal }}<br>
+                            <strong>Twój cel miesięczny:</strong> {{ $data->monthGoal }}<br>
                             @else
-                            Twój cel miesięczny: nie ustawiony<br>
+                            <strong>Twój cel miesięczny:</strong> nie ustawiony<br>
                             @endif
 
                             @if(isset($data->weekGoal))
-                            Twój cel tygodniowy: {{ $data->weekGoal }}<br>
+                            <strong>Twój cel tygodniowy:</strong> {{ $data->weekGoal }}<br>
                             @else
-                            Twój cel tygodniowy: nie ustawiony<br>
+                            <strong>Twój cel tygodniowy:</strong> nie ustawiony<br>
                             @endif
 
                             @if(isset($data->dayGoal))
-                            Twój cel dzienny: {{ $data->dayGoal }}<br>
+                            <strong>Twój cel dzienny:</strong> {{ $data->dayGoal }}<br>
                             @else
-                            Twój cel dzienny: nie ustawiony<br>
+                            <strong>Twój cel dzienny:</strong> nie ustawiony<br>
                             @endif
                             @endforeach
 
@@ -134,10 +167,11 @@
                     <div class="row">
                         <div class="col-auto">
                             <strong>Książki przeczytane</strong><br>
-                            @foreach($bookList1 as $book)
-                            {{ $book->title }} <br>
-                            @endforeach
-
+                            <ul>
+                                @foreach($bookList1 as $book)
+                                <li>{{ $book->title }}</li>
+                                @endforeach
+                            </ul>
                         </div>
 
                     </div>
@@ -145,18 +179,22 @@
                     <div class="row">
                         <div class="col-auto">
                             <strong>Książki czytane obecnie</strong><br>
-                            @foreach($bookList2 as $book)
-                            {{ $book->title }}<br>
-                            @endforeach
+                            <ul>
+                                @foreach($bookList2 as $book)
+                                <li>{{ $book->title }}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-auto">
                             <strong>Książki do przeczytania</strong><br>
-                            @foreach($bookList3 as $book)
-                            {{ $book->title }} <br>
-                            @endforeach
+                            <ul>
+                                @foreach($bookList3 as $book)
+                                <li>{{ $book->title }}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                     <hr>

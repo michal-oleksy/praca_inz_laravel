@@ -13,7 +13,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('home', [App\Http\Controllers\HomeController::class, 'edit'])->name('home.edit');
+Route::post('home/edit', [App\Http\Controllers\HomeController::class, 'edit'])->name('home.edit');
+Route::post('home/editPrivacySetting', [App\Http\Controllers\HomeController::class, 'editPrivacySetting'])->name('home.editPrivacySetting');
+
 
 
 Route::get('calendar', [App\Http\Controllers\CalendarController::class, 'index'])->name('calendar.index');
@@ -21,7 +23,7 @@ Route::post('calendar', [App\Http\Controllers\CalendarController::class, 'save']
 
 Route::get('books', [App\Http\Controllers\BooksController::class, 'index'])->name('books.index');
 Route::post('booksStatus/{bookID}', [App\Http\Controllers\BooksController::class, 'updateStatus'])->name('books.updateStatus');
-
+Route::post('booksSearch', [App\Http\Controllers\BooksController::class, 'search'])->name('books.search');
 
 Route::get('bookSpecs/{bookID}', [App\Http\Controllers\BookSpecsController::class, 'index'])->name('bookSpecs');
 

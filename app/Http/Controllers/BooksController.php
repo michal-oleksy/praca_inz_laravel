@@ -29,6 +29,14 @@ class BooksController extends Controller
 
         return redirect()->route('books.index');
     }
+
+    public function search(Request $request){
+        $search = $request->search;
+        
+        $books = Books::where('title', 'like', '%'.$search.'%')->get();
+
+        return view('books', ['books' => $books]);
+    }
 }
 
 

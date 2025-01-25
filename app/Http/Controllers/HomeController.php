@@ -31,7 +31,7 @@ class HomeController extends Controller
 
         $info = DB::table('users')
             ->where('id', $userID)
-            ->select('firstName', 'lastName', 'email', 'nickName')->get();
+            ->select('firstName', 'lastName', 'email', 'nickName','privacy')->get();
         $goals = DB::table('goals')
             ->where('userID', $userID)
             ->select('yearGoal', 'monthGoal', 'weekGoal', 'dayGoal')->get();
@@ -194,6 +194,24 @@ class HomeController extends Controller
         Goals::updateOrCreate([
             'userID' => $userID,
         ], $filteredData);
+
+        return redirect()->route('home');
+    }
+
+    public function editPrivacySetting(Request $request)
+    {
+        $user = Auth::user();
+        $userID = $user['id'];
+
+        $request->validate([
+            'privacy' => 'required|numeric|between:1,3',
+        ]);
+
+        $data = $request->only(['privacy']);
+
+        DB::table('users')
+            ->where('id', $userID)
+            ->update($data);
 
         return redirect()->route('home');
     }
