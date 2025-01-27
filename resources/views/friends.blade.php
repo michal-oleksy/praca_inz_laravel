@@ -6,6 +6,21 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="column">
+            @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+            @if (session('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+            @endif
             <div class="card">
                 <div class="card-header">
                     <h5>Twoi znajomi</h5>
@@ -21,7 +36,7 @@
 
                     @foreach($allAcceptedFriends as $user)
                     <div class="row my-2">
-                        <div class="col-auto">
+                        <div class="col-sm-3">
 
                             <strong>Imię:</strong> {{ $user->firstName }}<br>
                             <strong>Nazwisko:</strong> {{ $user->lastName }}<br>
@@ -29,7 +44,7 @@
 
                             <hr>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-sm-3">
                             <form action="{{ route('friends.cancelFriendRequest', ['userID' => $user->id]) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Usuń znajomego</button>
@@ -62,13 +77,13 @@
                     @if(count($pendingInvitationsFriends) > 0)
                     @foreach($pendingInvitationsFriends as $user)
                     <div class="row my-2 ">
-                        <div class="col-auto ">
+                        <div class="col-sm-3">
 
-                            Id: {{ $user->id }} <br>
-                            Imię: {{ $user->firstName }} <br>
-                            Nazwisko: {{ $user->lastName }} <br>
-                            Email: {{ $user->email }}
-                            
+
+                            <strong>Imię:</strong> {{ $user->firstName }} <br>
+                            <strong>Nazwisko:</strong> {{ $user->lastName }} <br>
+                            <strong>Email:</strong> {{ $user->email }}
+                            <hr>
                         </div>
                         <div class="col-auto">
                             <form action="{{ route('friends.acceptFriend', ['userID' => $user->id]) }}" method="POST">
@@ -82,9 +97,9 @@
                                 <button type="submit" class="btn btn-danger">Odrzuć</button>
                             </form>
                         </div>
-                        <hr class="my-2">
+                        
                     </div>
-
+                    
 
                     @endforeach
                     @else
@@ -98,7 +113,7 @@
             </div>
 
 
-            <!-- sendInvitationsFriends -->
+
 
             <div class="card my-2">
                 <div class="card-header">
@@ -112,16 +127,16 @@
                     @if(count($sendInvitationsFriends) > 0)
                     @foreach($sendInvitationsFriends as $user)
                     <div class="row my-2 ">
-                        <div class="col-auto ">
+                        <div class="col-sm-3">
 
-                            Id: {{ $user->id }} <br>
-                            Imię: {{ $user->firstName }} <br>
-                            Nazwisko: {{ $user->lastName }} <br>
-                            Email: {{ $user->email }}
+
+                            <strong>Imię:</strong> {{ $user->firstName }} <br>
+                            <strong>Nazwisko:</strong> {{ $user->lastName }} <br>
+                            <strong>Email:</strong> {{ $user->email }}
                             <hr>
                         </div>
 
-                        <div class="col-auto">
+                        <div class="col-sm-3">
                             <form action="{{ route('friends.cancelFriendRequest', ['userID' => $user->id]) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Anuluj</button>
@@ -143,21 +158,7 @@
                 </div>
             </div>
 
-            @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-            @endif
-            @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
-            @if (session('warning'))
-            <div class="alert alert-warning">
-                {{ session('warning') }}
-            </div>
-            @endif
+
         </div>
     </div>
 </div>

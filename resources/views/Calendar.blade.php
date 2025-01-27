@@ -175,12 +175,15 @@
             monthNamesShort: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'],
             dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
             dayNamesShort: ['Nie', 'Pon', 'Wt', 'Śr', 'Czw', 'Pią', 'Sob'],
+            eventBorderColor: 'black',
             buttonText: {
                 today: 'dzisiaj',
                 day: 'dzień',
                 week: 'tydzień',
                 month: 'miesiąc'
             },
+            plugins: [ 'bootstrap' ],
+             themeSystem: 'bootstrap',
             displayEventTime: false,
             defaultView: 'month',
             timeZone: 'local',

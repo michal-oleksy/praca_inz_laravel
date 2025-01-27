@@ -12,15 +12,15 @@
 </div>
 <div class="container-fluid">
     <div class="row text-center">
-        <div class="col">
+        <div class="col-sm">
             <h2>Uzupełniaj i śledź swoje postępy</h2>
             <img src="{{asset('images/calendar-icon.JPG')}}">
         </div>
-        <div class="col">
+        <div class="col-sm">
             <h2>Oceniaj i recenzuj książki</h2>
             <img src="{{asset('images/rating.png')}}">
         </div>
-        <div class="col">
+        <div class="col-sm">
             <h2>Dodawaj i obserwuj znajomych</h2>
             <img src="{{asset('images/friends.JPG')}}">
         </div>

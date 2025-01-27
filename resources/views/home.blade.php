@@ -18,7 +18,7 @@
                             </div>
                             @endif
 
-                            {{ __('Witamy! Jesteś zalogowany! ') }}<br>
+                            {{ __('Witamy! Jesteś zalogowany/a! ') }}<br>
                             Twoje dane:<br>
                             @foreach($info as $data)
                             <strong>Imię</strong>: {{$data->firstName}}<br>
@@ -31,9 +31,9 @@
 
                     </div>
                     <div class="row">
-                        
+
                         <div class="col-auto">
-                        <hr>
+                            <hr>
                             Twoje ustawienie prywatności:<br>
                             @if(isset($data->privacy))
                             @if($data->privacy == 1)
@@ -114,7 +114,7 @@
                             <div class="vl"></div>
                         </div>
 
-                        <div class="col-auto border border-secondary">
+                        <div class="col-auto ">
                             <form id="goalsForm" action="{{ route('home.edit') }}" method="post">
                                 <div class="form-group">
                                     @csrf
@@ -166,34 +166,46 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-auto">
-                            <strong>Książki przeczytane</strong><br>
+                            <strong>Książki przeczytane</strong>
                             <ul>
+                                @if(isset($bookList1)&&!$bookList1->isEmpty())
                                 @foreach($bookList1 as $book)
                                 <li>{{ $book->title }}</li>
                                 @endforeach
+                                @else
+                                Nie przeczytałeś/aś jeszcze żadnej książki.
+                                @endif
                             </ul>
                         </div>
 
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-auto">
+                        <div class="col-auto ">
                             <strong>Książki czytane obecnie</strong><br>
                             <ul>
+                                @if(isset($bookList2)&&!$bookList2->isEmpty())
                                 @foreach($bookList2 as $book)
                                 <li>{{ $book->title }}</li>
                                 @endforeach
+                                @else
+                                Nie czytasz jeszcze żadnej książki.
+                                @endif
                             </ul>
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row ">
                         <div class="col-auto">
                             <strong>Książki do przeczytania</strong><br>
                             <ul>
+                                @if(isset($bookList3)&&!$bookList3->isEmpty())
                                 @foreach($bookList3 as $book)
                                 <li>{{ $book->title }}</li>
                                 @endforeach
+                                @else
+                                Nie masz żadnej książki w planach.
+                                @endif
                             </ul>
                         </div>
                     </div>
